@@ -119,6 +119,10 @@ export default async function decorate(block) {
 
   const slidesWrapper = document.createElement('ul');
   slidesWrapper.classList.add('carousel-slides');
+
+  slidesWrapper.setAttribute('data-aue-type', 'container');
+  slidesWrapper.setAttribute('data-aue-filter', 'carousel');
+
   block.prepend(slidesWrapper);
 
   let slideIndicators;
