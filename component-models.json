@@ -222,7 +222,8 @@
         "component": "reference",
         "name": "image",
         "label": "Image",
-        "valueType": "string"
+        "valueType": "string",
+        "multi": true
       },
       {
         "component": "richtext",
