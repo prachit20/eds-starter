@@ -214,5 +214,52 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "slide",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "heading",
+        "label": "Heading",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ctaText",
+        "label": "CTA Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ctaLink",
+        "label": "CTA Link",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "align",
+        "label": "Alignment",
+        "valueType": "string",
+        "options": [
+          { "name": "Left", "value": "left" },
+          { "name": "Center", "value": "center" },
+          { "name": "Right", "value": "right" }
+        ]
+      }
+    ]
   }
 ]
