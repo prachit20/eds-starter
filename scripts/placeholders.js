@@ -1,4 +1,4 @@
-export async function fetchPlaceholders() {
+export default async function fetchPlaceholders() {
   return {
     carousel: "Carousel",
     carouselSlideControls: "Carousel Slide Controls",
