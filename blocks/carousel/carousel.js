@@ -84,10 +84,27 @@ function createSlide(row, slideIndex, carouselId) {
   slide.setAttribute('id', `carousel-${carouselId}-slide-${slideIndex}`);
   slide.classList.add('carousel-slide');
 
+  Array.from(row.attributes).forEach((attr) => {
+    if (attr.name.startsWith('data-aue-')) {
+      slide.setAttribute(attr.name, attr.value);
+    }
+  });
+
+  slide.setAttribute('data-aue-model', 'slide');
+  slide.setAttribute('data-aue-type', 'component');
+
   row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
     column.classList.add(
       `carousel-slide-${colIdx === 0 ? 'image' : 'content'}`,
     );
+    if (colIdx === 0) {
+      column.setAttribute('data-aue-prop', 'image');
+      column.setAttribute('data-aue-type', 'media');
+    } else if (colIdx === 1) {
+      column.setAttribute('data-aue-prop', 'text');
+      column.setAttribute('data-aue-type', 'richtext');
+    }
+
     slide.append(column);
   });
 
