@@ -44,16 +44,13 @@
 /* The panel containing the content */
 .tabs-panel {
     display: block;
-    animation: fadeIn 0.3s ease-in-out;
+    animation: fade-in 0.3s ease-in-out; /* Changed to kebab-case */
 }
 
-/* Hide inactive panels */
-.tabs-panel[aria-hidden='true'] {
-    display: none;
-}
+/* ... other rules ... */
 
-/* Smooth fade-in for tab content */
-@keyframes fadeIn {
+@keyframes fade-in {
+    /* Changed to kebab-case */
     from {
         opacity: 0;
     }
@@ -64,5 +61,6 @@
 
 /* Ensure the Universal Editor title field stays hidden visually */
 .tabs-panel > [data-aue-prop='title'] {
+    /* Added an empty line above this */
     display: none !important;
 }

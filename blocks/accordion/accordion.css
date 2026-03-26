@@ -56,7 +56,7 @@
 
 /* The content wrapper inside the accordion */
 .accordion-item-body {
-    padding: 0 0 1.5rem 0;
+    padding: 0 0 1.5rem;
     color: #555;
     line-height: 1.6;
 }
