@@ -1,34 +1,52 @@
-// eslint-disable-next-line import/no-unresolved
 import { toClassName } from '../../scripts/aem.js';
 
 export default async function decorate(block) {
-  // build tablist
   const tablist = document.createElement('div');
   tablist.className = 'tabs-list';
   tablist.setAttribute('role', 'tablist');
 
-  // decorate tabs and tabpanels
-  const tabs = [...block.children].map((child) => child.firstElementChild);
-  tabs.forEach((tab, i) => {
-    const id = toClassName(tab.textContent);
+  const rows = [...block.children];
 
-    // decorate tabpanel
-    const tabpanel = block.children[i];
-    tabpanel.className = 'tabs-panel';
-    tabpanel.id = `tabpanel-${id}`;
-    tabpanel.setAttribute('aria-hidden', !!i);
-    tabpanel.setAttribute('aria-labelledby', `tab-${id}`);
-    tabpanel.setAttribute('role', 'tabpanel');
+  rows.forEach((row, i) => {
+    // 1. Tell Universal Editor this row is a Tab component
+    row.setAttribute('data-aue-model', 'tab');
+    row.setAttribute('data-aue-type', 'component');
 
-    // build tab button
+    const tabTitleCol = row.children[0];
+    const tabContentCol = row.children[1];
+
+    const id = toClassName(tabTitleCol.textContent);
+
+    // Setup Tab Panel (the row itself becomes the panel wrapper)
+    row.className = 'tabs-panel';
+    row.id = `tabpanel-${id}`;
+    row.setAttribute('aria-hidden', !!i);
+    row.setAttribute('aria-labelledby', `tab-${id}`);
+    row.setAttribute('role', 'tabpanel');
+
+    // 2. Map the title property for the Editor (Hide it instead of remove)
+    if (tabTitleCol) {
+      tabTitleCol.setAttribute('data-aue-prop', 'title');
+      tabTitleCol.setAttribute('data-aue-type', 'text');
+      tabTitleCol.style.display = 'none'; // Keep in DOM for Editor, hide from user
+    }
+
+    // 3. Mark the content area as a dropzone for the Accordion
+    if (tabContentCol) {
+      tabContentCol.setAttribute('data-aue-type', 'container');
+      tabContentCol.setAttribute('data-aue-filter', 'tab-content');
+    }
+
+    // Build the visual Tab Button
     const button = document.createElement('button');
     button.className = 'tabs-tab';
     button.id = `tab-${id}`;
-    button.innerHTML = tab.innerHTML;
+    button.innerHTML = tabTitleCol.innerHTML;
     button.setAttribute('aria-controls', `tabpanel-${id}`);
     button.setAttribute('aria-selected', !i);
     button.setAttribute('role', 'tab');
     button.setAttribute('type', 'button');
+
     button.addEventListener('click', () => {
       block.querySelectorAll('[role=tabpanel]').forEach((panel) => {
         panel.setAttribute('aria-hidden', true);
@@ -36,11 +54,11 @@ export default async function decorate(block) {
       tablist.querySelectorAll('button').forEach((btn) => {
         btn.setAttribute('aria-selected', false);
       });
-      tabpanel.setAttribute('aria-hidden', false);
+      row.setAttribute('aria-hidden', false);
       button.setAttribute('aria-selected', true);
     });
+
     tablist.append(button);
-    tab.remove();
   });
 
   block.prepend(tablist);

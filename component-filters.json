@@ -55,7 +55,7 @@
   },
   {
     "id": "tab-content",
-    "components": ["accordion", "text", "image", "fragment"]
+    "components": ["accordion", "text", "image"]
   },
   {
     "id": "accordion",
