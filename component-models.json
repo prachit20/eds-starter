@@ -232,5 +232,27 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "tab",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Tab Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "accordion-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Accordion Title",
+        "valueType": "string"
+      }
+    ]
   }
 ]

@@ -32,5 +32,37 @@
   {
     "id": "carousel",
     "components": ["slide"]
+  },
+  {
+    "id": "section",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "hero",
+      "cards",
+      "columns",
+      "fragment",
+      "carousel",
+      "tabs",
+      "accordion"
+    ]
+  },
+  {
+    "id": "tabs",
+    "components": ["tab"]
+  },
+  {
+    "id": "tab-content",
+    "components": ["accordion", "text", "image", "fragment"]
+  },
+  {
+    "id": "accordion",
+    "components": ["accordion-item"]
+  },
+  {
+    "id": "accordion-content",
+    "components": ["fragment", "text", "image"]
   }
 ]
