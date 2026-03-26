@@ -1,50 +1,23 @@
+/*
+ * Accordion Block
+ * Recreate an accordion
+ * https://www.hlx.live/developer/block-collection/accordion
+ */
+
 export default function decorate(block) {
-  Array.from(block.children).forEach((row) => {
-    row.className = 'accordion-item';
-
-    // 1. Maintain Universal Editor attributes
-    row.setAttribute('data-aue-model', 'accordion-item');
-    row.setAttribute('data-aue-type', 'component');
-
-    const cols = Array.from(row.children);
-
-    // Header Element
-    const header = document.createElement('button');
-    header.className = 'accordion-header';
-
-    // 2. Map Column 0 to Accordion Title property
-    if (cols[0]) {
-      header.innerText = cols[0].innerText || 'Accordion Title';
-      cols[0].setAttribute('data-aue-prop', 'title');
-      cols[0].setAttribute('data-aue-type', 'text');
-      cols[0].style.display = 'none'; // Hide in UI, keep for editor payload
-      row.append(cols[0]);
-    }
-
-    // Content Wrapper
-    const contentWrapper = document.createElement('div');
-    contentWrapper.className = 'accordion-content-wrapper';
-
-    // 3. Map Column 1 as the Dropzone Container for nested blocks
-    if (cols[1]) {
-      cols[1].className = 'accordion-content';
-      cols[1].setAttribute('data-aue-type', 'container');
-      cols[1].setAttribute('data-aue-filter', 'accordion-content'); // Allows Fragment
-      contentWrapper.append(cols[1]);
-    }
-
-    // Accordion Toggle Logic
-    header.addEventListener('click', () => {
-      const isExpanded = row.classList.contains('expanded');
-      block
-        .querySelectorAll('.accordion-item')
-        .forEach((item) => item.classList.remove('expanded'));
-      if (!isExpanded) {
-        row.classList.add('expanded');
-      }
-    });
-
-    row.prepend(header);
-    row.append(contentWrapper);
+  [...block.children].forEach((row) => {
+    // decorate accordion item label
+    const label = row.children[0];
+    const summary = document.createElement('summary');
+    summary.className = 'accordion-item-label';
+    summary.append(...label.childNodes);
+    // decorate accordion item body
+    const body = row.children[1];
+    body.className = 'accordion-item-body';
+    // decorate accordion item
+    const details = document.createElement('details');
+    details.className = 'accordion-item';
+    details.append(summary, body);
+    row.replaceWith(details);
   });
 }
